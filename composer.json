@@ -3,7 +3,6 @@
     "license": "proprietary",
     "require": {
         "php": "^7.1.3",
-        "friendsofsymfony/rest-bundle": "^2.2",
         "symfony/annotations-pack": "^1.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^3.3",
