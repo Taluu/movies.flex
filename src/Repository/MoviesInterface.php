@@ -8,6 +8,6 @@ interface MoviesInterface
     /** @throws MovieNotFoundException */
     public function get(int $id): Movie;
 
-    /** @return Movie[] */
+    /** @yield Movie */
     public function getAll(): iterable;
 }
