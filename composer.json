@@ -46,7 +46,8 @@
     },
     "extra": {
         "symfony": {
-            "id": "01BPEEVHSJPZXQCQ2AJPPEKZJ8"
+            "id": "01BPEEVHSJPZXQCQ2AJPPEKZJ8",
+            "allow-contrib": "true"
         }
     }
 }
