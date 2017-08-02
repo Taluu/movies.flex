@@ -27,3 +27,14 @@ services:
         resource: '../src/Controller'
         public: true
         tags: ['controller.service_arguments']
+
+    App\Repository\Movies:
+        factory:
+            - '@doctrine.orm.default_entity_manager'
+            - 'getRepository'
+
+        arguments:
+            - 'App\Entity\Movie'
+
+    App\Repository\MoviesInterface:
+        alias: App\Repository\Movies
