@@ -8,4 +8,7 @@ return [
     'Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle' => ['all' => true],
     'Symfony\Bundle\WebProfilerBundle\WebProfilerBundle' => ['dev' => true, 'test' => true],
     'Symfony\Bundle\TwigBundle\TwigBundle' => ['all' => true],
+    'Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle' => ['dev' => true, 'test' => true],
+    'Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle' => ['dev' => true, 'test' => true],
+    'Hautelook\AliceBundle\HautelookAliceBundle' => ['dev' => true, 'test' => true],
 ];

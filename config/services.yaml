@@ -38,3 +38,9 @@ services:
 
     App\Repository\MoviesInterface:
         alias: App\Repository\Movies
+
+    Psr\Log\LoggerInterface:
+        class: Psr\Log\NullLogger
+
+    logger:
+        alias: Psr\Log\LoggerInterface

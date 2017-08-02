@@ -1,0 +1,4 @@
+App\Entity\Movie:
+    dummy_{1..10}:
+        __construct:
+            - '<name()>'
