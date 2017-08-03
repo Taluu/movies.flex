@@ -28,7 +28,7 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    App\Repository\Movies:
+    App\Repository\MoviesDoctrine:
         factory:
             - '@doctrine.orm.default_entity_manager'
             - 'getRepository'
@@ -37,7 +37,7 @@ services:
             - 'App\Entity\Movie'
 
     App\Repository\MoviesInterface:
-        alias: App\Repository\Movies
+        alias: App\Repository\MoviesDoctrine
 
     Psr\Log\LoggerInterface:
         class: Psr\Log\NullLogger

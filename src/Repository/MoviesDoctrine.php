@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityNotFoundException;
 
 use App\Entity\Movie;
 
-class Movies extends EntityRepository implements MoviesInterface
+class MoviesDoctrine extends EntityRepository implements MoviesInterface
 {
     /** {@inheritDoc} */
     public function get(int $id): Movie
