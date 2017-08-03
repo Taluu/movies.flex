@@ -9,21 +9,19 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-use App\MovieNotFoundException;
+use App\Entity\Movie;
 use App\Repository\MoviesInterface as MoviesRepositoryInterface;
+
+use App\MovieNotFoundException;
 
 /** @Route("/v1/movies") */
 class MoviesController
 {
-    /** @var SerializerInterface */
-    private $serializer;
-
     /** @var MoviesRepositoryInterface */
     private $repository;
 
-    public function __construct(SerializerInterface $serializer, MoviesRepositoryInterface $repository)
+    public function __construct(MoviesRepositoryInterface $repository)
     {
-        $this->serializer = $serializer;
         $this->repository = $repository;
     }
 
@@ -31,25 +29,17 @@ class MoviesController
      * @Route("")
      * @Method("GET")
      */
-    public function getMovies(): Response
+    public function getMovies(): iterable
     {
-        $movies = $this->repository->getAll();
-
-        return new JsonResponse($this->serializer->serialize($movies, 'json'), 200, [], true);
+        return iterator_to_array($this->repository->getAll());
     }
 
     /**
      * @Route("/{id}", requirements={"id": "\d+"})
      * @Method("GET")
      */
-    public function getMovie($id): Response
+    public function getMovie($id): Movie
     {
-        try {
-            $movie = $this->repository->get($id);
-
-            return new JsonResponse($this->serializer->serialize($movie, 'json'), 200, [], true);
-        } catch (MovieNotFoundException $e) {
-            return new JsonResponse(['error' => "Movie {$id} not found"], 404);
-        }
+        return $this->repository->get($id);
     }
 }
