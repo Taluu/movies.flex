@@ -2,9 +2,10 @@
 namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityNotFoundException;
+use Doctrine\ORM\NoResultException;
 
 use App\Entity\Movie;
+use App\MovieNotFoundException;
 
 class MoviesDoctrine extends EntityRepository implements MoviesInterface
 {
@@ -19,7 +20,7 @@ class MoviesDoctrine extends EntityRepository implements MoviesInterface
 
         try {
             return $query->getSingleResult();
-        } catch (EntityNotFoundException $e) {
+        } catch (NoResultException $e) {
             throw new MovieNotFoundException($id, $e);
         }
     }
