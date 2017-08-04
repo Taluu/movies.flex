@@ -25,8 +25,8 @@ class ResponseListener
         $data = is_iterable($value) ? $value : [$value];
 
         $data = [
+            'count' => 0,
             'total' => count($data),
-            'count' => count($data),
             'data' => $this->serializer->normalize($data)
         ];
 
@@ -34,6 +34,8 @@ class ResponseListener
             if (isset($object['id'])) {
                 $object['id'] = sha1($object['id']);
             }
+
+            ++$data['count'];
         }
 
         if (!is_iterable($value)) {

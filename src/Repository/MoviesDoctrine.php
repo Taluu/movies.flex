@@ -3,6 +3,7 @@ namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 use App\Entity\Movie;
 use App\MovieNotFoundException;
@@ -26,11 +27,21 @@ class MoviesDoctrine extends EntityRepository implements MoviesInterface
     }
 
     /** {@inheritDoc} */
-    public function getAll(): iterable
+    public function getAll(int $start = 0, ?int $limit = 5): iterable
     {
         $builder = $this->createQueryBuilder('m');
+
         $query = $builder->getQuery();
 
-        yield from $query->getResult();
+        if (null !== $limit) {
+            $query
+                ->setFirstResult($start)
+                ->setMaxResults($limit)
+            ;
+
+            return new Paginator($query);
+        }
+
+        return $query->getResult();
     }
 }
