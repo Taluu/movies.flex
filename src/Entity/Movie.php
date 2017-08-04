@@ -43,4 +43,14 @@ class Movie
     {
         return $this->name;
     }
+
+    public function isDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    public function delete(): void
+    {
+        $this->deleted = true;
+    }
 }

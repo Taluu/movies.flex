@@ -55,4 +55,22 @@ class MoviesDoctrine extends EntityRepository implements MoviesInterface
 
         return $query->getResult();
     }
+
+    /** {@inheritDoc} */
+    public function delete(Movie $movie, bool $soft = true): void
+    {
+        $em = $this->getEntityManager();
+
+        if (!$soft) {
+            $em->remove($movie);
+            $em->flush();
+
+            return;
+        }
+
+        $movie->delete();
+
+        $em->persist($movie);
+        $em->flush();
+    }
 }

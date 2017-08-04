@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+
 use Symfony\Component\Serializer\SerializerInterface;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -67,5 +69,17 @@ class MoviesController
     public function getMovie($hash): Movie
     {
         return $this->repository->get($hash);
+    }
+
+    /**
+     * @Route("/{hash}", requirements={"hash": "^[0-9a-zA-Z]{40}$"})
+     * @Method("DELETE")
+     */
+    public function delete($hash): JsonResponse
+    {
+        $movie = $this->repository->get($hash);
+        $this->repository->delete($movie);
+
+        return new JsonResponse(null, 204);
     }
 }
