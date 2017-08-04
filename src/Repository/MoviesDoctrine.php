@@ -27,13 +27,20 @@ class MoviesDoctrine extends EntityRepository implements MoviesInterface
     }
 
     /** {@inheritDoc} */
-    public function getAll(int $start = 0, ?int $limit = 5): iterable
+    public function getAll(int $start = 0, ?int $limit = 5, ?string $order = 'id', string $direction = 'asc'): iterable
     {
         $builder = $this->createQueryBuilder('m');
 
+        if (null !== $order) {
+            $builder->orderBy("m.{$order}", $direction);
+        }
+
         $query = $builder->getQuery();
 
-        if (null !== $limit) {
+        // can't use order AND limit until doctrine 2.6 with Paginator with MySQL 5.7
+        // @see https://github.com/doctrine/doctrine2/pull/6143
+        // @see https://github.com/doctrine/doctrine2/issues/5622
+        if (null === $order && null !== $limit) {
             $query
                 ->setFirstResult($start)
                 ->setMaxResults($limit)

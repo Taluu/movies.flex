@@ -4,6 +4,8 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Serializer\SerializerInterface;
 
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -46,7 +48,16 @@ class MoviesController
         $start = $request->query->get('start', 0);
         $limit = $request->query->get('limit', null);
 
-        return $this->repository->getAll($start, $limit);
+        $order = $request->query->get('order', null);
+        $direction = $request->query->get('direction', 'asc');
+
+        if (!in_array($order, [null, 'name'], true)) {
+            throw new BadRequestHttpException("Expected \"name\" or no value for order, had \"{$order}\"");
+        } elseif (!in_array($direction, ['asc', 'desc'])) {
+            throw new BadRequestHttpException("Expected \"asc\" or \"desc\" for order direction, had \"{$direction}\"");
+        }
+
+        return $this->repository->getAll($start, $limit, $order, $direction);
     }
 
     /**
