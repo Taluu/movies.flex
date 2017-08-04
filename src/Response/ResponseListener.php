@@ -1,7 +1,9 @@
 <?php
 namespace App\Response;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\Serializer\SerializerInterface;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
