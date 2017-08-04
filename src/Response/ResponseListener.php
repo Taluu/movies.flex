@@ -30,7 +30,7 @@ class ResponseListener
         $data = [
             'count' => 0,
             'total' => count($data),
-            'data' => $this->serializer->normalize($data)
+            'data' => $this->serializer->normalize($data, null, ['groups' => ['public']])
         ];
 
         foreach ($data['data'] as &$object) {

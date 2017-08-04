@@ -3,6 +3,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Serializer\Annotation as Serialization;
+
 /** @ORM\Entity(repositoryClass="App\Repository\MoviesDoctrine") */
 class Movie
 {
@@ -10,10 +12,15 @@ class Movie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Serialization\Groups({"public", "all"})
      */
     private $id;
 
-    /** @ORM\Column(type="string") */
+    /**
+     * @ORM\Column(type="string")
+     * @Serialization\Groups({"public", "all"})
+     */
     private $name;
 
     public function __construct(string $name)
