@@ -22,11 +22,16 @@ class ResponseListener
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
         $value = $event->getControllerResult();
-        $data = ['data' => $this->serializer->normalize($value)];
+        $data = is_iterable($value) ? $value : [$value];
 
-        if (is_iterable($value)) {
-            $data['total'] = count($value);
-            $data['count'] = count($value);
+        $data = [
+            'total' => count($value),
+            'count' => count($value),
+            'data' => $this->serializer->normalize($data)
+        ];
+
+        if (!is_iterable($value)) {
+            $data['data'] = array_pop($data['data']);
         }
 
         $event->setResponse(new JsonResponse($data, 200));
