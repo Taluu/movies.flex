@@ -10,18 +10,18 @@ use App\MovieNotFoundException;
 class MoviesDoctrine extends EntityRepository implements MoviesInterface
 {
     /** {@inheritDoc} */
-    public function get(int $id): Movie
+    public function get(string $hash): Movie
     {
         $builder = $this->createQueryBuilder('m');
-        $builder->where('m.id = :id');
+        $builder->where('sha1(m.id) = :hash');
 
         $query = $builder->getQuery();
-        $query->setParameter('id', $id);
+        $query->setParameter('hash', $hash);
 
         try {
             return $query->getSingleResult();
         } catch (NoResultException $e) {
-            throw new MovieNotFoundException($id, $e);
+            throw new MovieNotFoundException($hash, $e);
         }
     }
 

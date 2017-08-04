@@ -25,10 +25,16 @@ class ResponseListener
         $data = is_iterable($value) ? $value : [$value];
 
         $data = [
-            'total' => count($value),
-            'count' => count($value),
+            'total' => count($data),
+            'count' => count($data),
             'data' => $this->serializer->normalize($data)
         ];
+
+        foreach ($data['data'] as &$object) {
+            if (isset($object['id'])) {
+                $object['id'] = sha1($object['id']);
+            }
+        }
 
         if (!is_iterable($value)) {
             $data['data'] = array_pop($data['data']);

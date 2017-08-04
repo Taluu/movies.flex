@@ -35,11 +35,11 @@ class MoviesController
     }
 
     /**
-     * @Route("/{id}", requirements={"id": "\d+"})
+     * @Route("/{hash}", requirements={"hash": "^[0-9a-zA-Z]{40}$"})
      * @Method("GET")
      */
-    public function getMovie($id): Movie
+    public function getMovie($hash): Movie
     {
-        return $this->repository->get($id);
+        return $this->repository->get($hash);
     }
 }
