@@ -9,5 +9,5 @@ interface MoviesInterface
     public function get(string $hash): Movie;
 
     /** @return Movie[] */
-    public function getAll(int $start = 0, ?int $limit = 5, ?string $order = 'id', string $direction = 'asc'): iterable;
+    public function getAll(int $start = 0, ?int $limit = 5, ?string $order = 'id', string $direction = 'asc', bool $showDeleted = false): iterable;
 }

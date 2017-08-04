@@ -27,12 +27,16 @@ class MoviesDoctrine extends EntityRepository implements MoviesInterface
     }
 
     /** {@inheritDoc} */
-    public function getAll(int $start = 0, ?int $limit = 5, ?string $order = 'id', string $direction = 'asc'): iterable
+    public function getAll(int $start = 0, ?int $limit = 5, ?string $order = 'id', string $direction = 'asc', bool $showDeleted = false): iterable
     {
         $builder = $this->createQueryBuilder('m');
 
         if (null !== $order) {
             $builder->orderBy("m.{$order}", $direction);
+        }
+
+        if (false === $showDeleted) {
+            $builder->where('m.deleted = false');
         }
 
         $query = $builder->getQuery();

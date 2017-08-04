@@ -23,6 +23,12 @@ class Movie
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="boolean")
+     * @Serialization\Groups({"all"})
+     */
+    private $deleted = false;
+
     public function __construct(string $name)
     {
         $this->name = $name;
