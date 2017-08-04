@@ -4,6 +4,9 @@ namespace App\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 
@@ -49,10 +52,14 @@ class ResponseListener
     {
         $e = $event->getException();
 
-        if (!$e instanceof MovieNotFoundException) {
+        if ($e instanceof MovieNotFoundException) {
+            $e = new NotFoundHttpException($e->getMessage(), $e);
+        }
+
+        if (!$e instanceof HttpExceptionInterface) {
             return;
         }
 
-        $event->setResponse(new JsonResponse(['error' => $e->getMessage()], 404));
+        $event->setResponse(new JsonResponse(['error' => $e->getMessage(), 'http' => $e->getStatusCode()], $e->getStatusCode()));
     }
 }
