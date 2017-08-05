@@ -39,7 +39,7 @@ class MoviesController
         // for a reason of HUGE coupling, we can't actually inject Request here
         // so we need the RequestStack as a dependency...
         //
-        // yes, that's crappy.
+        // yes, that's crappy. And creepy too.
         //
         // @see https://github.com/symfony/symfony/issues/23788
         // @see https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues/463
