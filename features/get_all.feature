@@ -17,6 +17,7 @@ Scenario: Fetch a paginated list of undeleted movies
     And the response should be a valid json response
     And in the json, "count" should be equal to 5
     And in the json, "total" should be greater than or equal to 10
+    And in the json, "data" should have 5 elements
 
 Scenario: Fetch a paginated list of undeleted movies with a offset
   When I create a "GET" request to "/v1/movies?limit=5&start=1"
