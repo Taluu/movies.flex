@@ -1,0 +1,26 @@
+default:
+    suites:
+        main:
+            paths: [%paths.base%/features]
+            services: "@behapi.container"
+
+            contexts:
+                - Behapi\Context\Http:
+                    - "@http.client"
+                    - "@http.stream_factory"
+                    - "@http.message_factory"
+                    - "@http.history"
+                    - "@twig"
+
+                - Behapi\Context\Json:
+                    - "@http.history"
+    extensions:
+        Behapi\Extension\Behapi:
+            base_url: 'http://127.0.0.1:8000'
+            debug:
+                headers:
+                    request:
+                        - Content-Type
+
+                    response:
+                        - Content-Type

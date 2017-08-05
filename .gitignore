@@ -4,6 +4,7 @@
 /bin/*
 !bin/console
 composer.lock
+behat.yml
 
 ###> symfony/framework-bundle ###
 /public/bundles/
