@@ -7,7 +7,7 @@ class MovieNotFoundException extends Exception
 {
     private $id;
 
-    public function __construct(int $id, Exception $previous = null)
+    public function __construct($id, Exception $previous = null)
     {
         $this->id = $id;
 
