@@ -2,3 +2,7 @@ App\Entity\Movie:
     dummy_{1..10}:
         __construct:
             - '<name()>'
+
+    soft_deleted:
+        __construct:
+            - '<name()>'
