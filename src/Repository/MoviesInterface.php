@@ -9,7 +9,7 @@ interface MoviesInterface
     public function get(string $hash): Movie;
 
     /** @return Movie[] */
-    public function getAll(int $start = 0, ?int $limit = 5, ?string $order = 'id', string $direction = 'asc', bool $showDeleted = false): iterable;
+    public function getAll(int $start = 0, ?int $limit = null, ?string $order = null, string $direction = 'asc', bool $showDeleted = false): iterable;
 
     /** Delete (soft or not) a Movie */
     public function delete(Movie $movie, bool $soft = true): void;

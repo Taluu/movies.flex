@@ -27,7 +27,7 @@ class MoviesDoctrine extends EntityRepository implements MoviesInterface
     }
 
     /** {@inheritDoc} */
-    public function getAll(int $start = 0, ?int $limit = 5, ?string $order = 'id', string $direction = 'asc', bool $showDeleted = false): iterable
+    public function getAll(int $start = 0, ?int $limit = null, ?string $order = null, string $direction = 'asc', bool $showDeleted = false): iterable
     {
         $builder = $this->createQueryBuilder('m');
 
