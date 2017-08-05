@@ -1,11 +1,13 @@
 <?php
 namespace App\Response;
 
-use Symfony\Component\HttpFoundation\Response;
+use Exception;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\Serializer\SerializerInterface;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
@@ -59,7 +61,12 @@ class ResponseListener
         }
 
         if (!$e instanceof HttpExceptionInterface) {
-            return;
+            $e = new class($e) extends HttpException {
+                public function __construct(Exception $previous)
+                {
+                    parent::__construct(500, 'Oops, something nasty happened !', $previous);
+                }
+            };
         }
 
         $event->setResponse(new JsonResponse(['error' => $e->getMessage(), 'http' => $e->getStatusCode()], $e->getStatusCode()));
