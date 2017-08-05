@@ -17,6 +17,7 @@
     "require-dev": {
         "hautelook/alice-bundle": "^2.0@beta",
         "nelmio/alice": "^3.0@beta",
+        "phpunit/phpunit": "^6.3",
         "psr/log": "^1.0",
         "symfony/dotenv": "^3.3",
         "symfony/profiler-pack": "^1.0",
