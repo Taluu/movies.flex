@@ -17,7 +17,7 @@ use App\Entity\Movie;
 
 class MoviesDoctrineTest extends TestCase
 {
-    public function testSoftDelete()
+    public function test_soft_delete()
     {
         $movie = new Movie('foo');
         $metadata = new ClassMetadata('movie');
@@ -34,7 +34,7 @@ class MoviesDoctrineTest extends TestCase
         $this->assertTrue($movie->isDeleted());
     }
 
-    public function testRealDelete()
+    public function test_hard_delete()
     {
         $movie = new Movie('foo');
         $metadata = new ClassMetadata('movie');
@@ -49,7 +49,7 @@ class MoviesDoctrineTest extends TestCase
         $repo->delete($movie, false);
     }
 
-    public function testGetExistingMovie()
+    public function test_getMovie()
     {
         $movie = new Movie('foo');
         $metadata = new ClassMetadata('movie');
@@ -76,7 +76,7 @@ class MoviesDoctrineTest extends TestCase
      * @expectedException App\MovieNotFoundException
      * @expectedExceptionMessage Movie foo was not found
      */
-    public function testGetUnknownMovie()
+    public function test_getMovie_not_found()
     {
         $metadata = new ClassMetadata('movie');
 
@@ -98,7 +98,7 @@ class MoviesDoctrineTest extends TestCase
         $repo->get('foo');
     }
 
-    public function testAllWithoutPaginationOrOrderAndNoSoftDeletedRecords()
+    public function test_getAll_without_pagination_or_order_and_no_soft_deleted_records()
     {
         $movie = new Movie('foo');
         $metadata = new ClassMetadata('movie');
@@ -125,7 +125,7 @@ class MoviesDoctrineTest extends TestCase
         $this->assertContainsOnlyInstancesOf(Movie::class, $movies);
     }
 
-    public function testAllWithoutPaginationOrOrderAndSoftDeletedRecords()
+    public function test_getAll_without_pagination_or_order_and_soft_deleted_records()
     {
         $movie = new Movie('foo');
         $metadata = new ClassMetadata('movie');
@@ -152,7 +152,7 @@ class MoviesDoctrineTest extends TestCase
         $this->assertContainsOnlyInstancesOf(Movie::class, $movies);
     }
 
-    public function testAllWithOrderButNoPagination()
+    public function test_getAll_with_order_but_no_pagination()
     {
         $movie = new Movie('foo');
         $metadata = new ClassMetadata('movie');
@@ -179,7 +179,7 @@ class MoviesDoctrineTest extends TestCase
         $this->assertContainsOnlyInstancesOf(Movie::class, $movies);
     }
 
-    public function testAllWithPaginationButNoOrder()
+    public function test_getAll_With_pagination_but_no_order()
     {
         $movie = new Movie('foo');
         $metadata = new ClassMetadata('movie');
@@ -206,7 +206,7 @@ class MoviesDoctrineTest extends TestCase
         $this->assertInstanceOf(Paginator::class, $movies);
     }
 
-    public function testAllWithPaginationAndOrder()
+    public function test_getAll_with_pagination_and_order_should_not_trigger_pagination()
     {
         $movie = new Movie('foo');
         $metadata = new ClassMetadata('movie');

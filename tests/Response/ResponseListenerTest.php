@@ -21,7 +21,7 @@ use App\MovieNotFoundException;
 
 class ResponseListenerTest extends TestCase
 {
-    public function testKernelViewCollection()
+    public function test_onKernelView_with_a_collection()
     {
         $data = [['id' => 'foo'], ['id' => 'bar']];
 
@@ -55,7 +55,7 @@ class ResponseListenerTest extends TestCase
         $this->assertJsonStringEqualsJsonString(json_encode($expect), $event->getResponse()->getContent());
     }
 
-    public function testKernelViewSingle()
+    public function test_onKernelView_on_single_element()
     {
         $data = 'foo';
         $transformedData = [['id' => 'foo']];
@@ -84,7 +84,7 @@ class ResponseListenerTest extends TestCase
         $this->assertJsonStringEqualsJsonString(json_encode($expect), $event->getResponse()->getContent());
     }
 
-    public function testHttpException()
+    public function test_onKernelException_with_a_HttpExceptionInterface()
     {
         $request = new Request;
         $kernel = $this->prophesize(HttpKernelInterface::class)->reveal();
@@ -121,7 +121,7 @@ class ResponseListenerTest extends TestCase
         $this->assertJsonStringEqualsJsonString(json_encode($expect), $event->getResponse()->getContent());
     }
 
-    public function testNotFoundException()
+    public function test_onKernelException_with_a_MovieNotFoundException()
     {
         $request = new Request;
         $exception = new MovieNotFoundException('foo');
@@ -142,7 +142,7 @@ class ResponseListenerTest extends TestCase
         $this->assertJsonStringEqualsJsonString(json_encode($expect), $event->getResponse()->getContent());
     }
 
-    public function testNotHttpExceptionAndNotNotFoundException()
+    public function test_onKernelException_with_an_unrelated_exception()
     {
         $request = new Request;
         $exception = new \Exception;

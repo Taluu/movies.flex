@@ -17,7 +17,7 @@ use App\Repository\MoviesInterface as MoviesRepositoryInterface;
 
 class MoviesControllerTest extends TestCase
 {
-    public function testGetMovie()
+    public function test_getMovie()
     {
         $movie = new Movie('foo');
         $stack = new RequestStack;
@@ -37,7 +37,7 @@ class MoviesControllerTest extends TestCase
      * @expectedException App\MovieNotFoundException
      * @expectedExceptionMessage Movie foo was not found
      */
-    public function testGetMovieNotFound()
+    public function test_getMovie_not_found()
     {
         $stack = new RequestStack;
 
@@ -49,7 +49,7 @@ class MoviesControllerTest extends TestCase
         $controller->getMovie('foo');
     }
 
-    public function testDelete()
+    public function test_delete()
     {
         $movie = new Movie('foo');
         $stack = new RequestStack;
@@ -70,7 +70,7 @@ class MoviesControllerTest extends TestCase
      * @expectedException App\MovieNotFoundException
      * @expectedExceptionMessage Movie foo was not found
      */
-    public function testDeleteNotFound()
+    public function test_delete_not_found()
     {
         $stack = new RequestStack;
 
@@ -83,7 +83,7 @@ class MoviesControllerTest extends TestCase
         $controller->delete('foo');
     }
 
-    public function testGetAllWithoutOrderOrPagination()
+    public function test_getAll_without_order_or_pagination()
     {
         $movie = new Movie('foo');
 
@@ -104,7 +104,7 @@ class MoviesControllerTest extends TestCase
     }
 
     /** @dataProvider directionProvider */
-    public function testGetAllWithOrderButNoPagination($direction)
+    public function test_getAll_with_order_but_no_pagination($direction)
     {
         $movie = new Movie('foo');
 
@@ -132,7 +132,7 @@ class MoviesControllerTest extends TestCase
      * @expectedException Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      * @expectedExceptionMessage Expected "name" or no value for order, had "foo"
      */
-    public function testGetAllWithWrongOrderAndNoPagination($direction)
+    public function test_getAll_with_wrong_order_and_no_pagination($direction)
     {
         $movie = new Movie('foo');
 
@@ -156,7 +156,7 @@ class MoviesControllerTest extends TestCase
      * @expectedException Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      * @expectedExceptionMessage Expected "asc" or "desc" for order direction, had "foo"
      */
-    public function testGetAllWithWrongOrderWrongDirectionAndNoPagination()
+    public function test_getAll_with_wrong_order_wrong_direction_and_no_pagination()
     {
         $movie = new Movie('foo');
 
@@ -176,7 +176,7 @@ class MoviesControllerTest extends TestCase
         $controller->getMovies();
     }
 
-    public function testGetAllWithPagination()
+    public function test_getAll_with_pagination()
     {
         $movie = new Movie('foo');
         $paginator = $this->prophesize(Paginator::class)->reveal();
