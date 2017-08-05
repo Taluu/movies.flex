@@ -4,8 +4,7 @@ namespace App\Response;
 use Exception;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -18,12 +17,12 @@ use App\MovieNotFoundException;
 
 class ResponseListener
 {
-    /** @var SerializerInterface */
-    private $serializer;
+    /** @var NormalizerInterface */
+    private $normalizer;
 
-    public function __construct(SerializerInterface $serializer)
+    public function __construct(NormalizerInterface $normalizer)
     {
-        $this->serializer = $serializer;
+        $this->normalizer = $normalizer;
     }
 
     public function onKernelView(GetResponseForControllerResultEvent $event)
@@ -34,7 +33,7 @@ class ResponseListener
         $data = [
             'count' => 0,
             'total' => count($data),
-            'data' => $this->serializer->normalize($data, null, ['groups' => ['public']])
+            'data' => $this->normalizer->normalize($data, null, ['groups' => ['public']])
         ];
 
         foreach ($data['data'] as &$object) {
