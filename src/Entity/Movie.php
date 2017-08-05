@@ -49,8 +49,8 @@ class Movie
         return $this->deleted;
     }
 
-    public function delete(): void
+    public function setDeleted(bool $deleted): void
     {
-        $this->deleted = true;
+        $this->deleted = $deleted;
     }
 }

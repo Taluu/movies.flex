@@ -67,7 +67,7 @@ class MoviesDoctrine extends EntityRepository implements MoviesInterface
             return;
         }
 
-        $movie->delete();
+        $movie->setDeleted(true);
 
         $em->persist($movie);
         $em->flush();
