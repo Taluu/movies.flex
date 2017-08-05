@@ -39,20 +39,19 @@ class MoviesDoctrine extends EntityRepository implements MoviesInterface
             $builder->where('m.deleted = false');
         }
 
-        $query = $builder->getQuery();
-
         // can't use order AND limit until doctrine 2.6 with Paginator with MySQL 5.7
         // @see https://github.com/doctrine/doctrine2/pull/6143
         // @see https://github.com/doctrine/doctrine2/issues/5622
         if (null === $order && null !== $limit) {
-            $query
+            $builder
                 ->setFirstResult($start)
                 ->setMaxResults($limit)
             ;
 
-            return new Paginator($query);
+            return new Paginator($builder);
         }
 
+        $query = $builder->getQuery();
         return $query->getResult();
     }
 
