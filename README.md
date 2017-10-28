@@ -1,5 +1,4 @@
-# moovone.films
-Test technique @ MoovOne
+# Movies API example implementation using Symfony Flex
 
 ## Requirements
 - PHP 7.1
